@@ -26,7 +26,7 @@ def buscar_vuelos(access_token):
 
     resultados = []
     ciudades = ["EZE", "GRU", "GIG"]
-    destino = "MAD"  # Madrid como ejemplo de Europa
+    destino = "MAD"
     fecha_salida = (datetime.today() + timedelta(days=10)).strftime("%Y-%m-%d")
 
     for origen in ciudades:
@@ -58,8 +58,6 @@ def main():
     if vuelos:
         for vuelo in vuelos:
             enviar_mensaje(vuelo)
-    else:
-        enviar_mensaje("No se encontraron vuelos por menos de 300 USD.")
 
 if __name__ == "__main__":
     main()
