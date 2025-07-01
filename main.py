@@ -8,6 +8,10 @@ CHAT_ID = "1659337515"
 AMADEUS_CLIENT_ID = "9k8WiSerwvAuOm7LRzHvEy5B5DcjGtss"
 AMADEUS_CLIENT_SECRET = "xGl6PMGKiHuo9rY3"
 
+def enviar_mensaje(mensaje):
+    bot = telegram.Bot(token=TELEGRAM_TOKEN)
+    bot.send_message(chat_id=CHAT_ID, text=mensaje)
+
 def get_access_token():
     url = "https://test.api.amadeus.com/v1/security/oauth2/token"
     data = {
@@ -62,16 +66,15 @@ def buscar_vuelos(access_token):
         fecha_actual += delta
     return resultados
 
-def enviar_mensaje(mensaje):
-    bot = telegram.Bot(token=TELEGRAM_TOKEN)
-    bot.send_message(chat_id=CHAT_ID, text=mensaje)
-
 def main():
+    enviar_mensaje("🤖 El bot de vuelos está corriendo y buscando ofertas...")
     token = get_access_token()
     vuelos = buscar_vuelos(token)
     if vuelos:
         for vuelo in vuelos:
             enviar_mensaje(vuelo)
+    else:
+        enviar_mensaje("No se encontraron vuelos por debajo de los precios configurados.")
 
 if __name__ == "__main__":
     main()
